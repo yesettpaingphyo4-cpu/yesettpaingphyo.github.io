@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ye Sett Paing Phyo — Computer Science Graduate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EFF1ED;
+    --surface:#FFFFFF;
+    --ink:#11181C;
+    --muted:#5C6868;
+    --accent:#1F4FFF;
+    --accent-soft:#E7ECFF;
+    --teal:#0B7C6B;
+    --teal-soft:#DEF0EC;
+    --line:#DBDFDA;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  /* ---- Nav ---- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(239,241,237,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;max-width:1080px;margin:0 auto;
+  }
+  .nav-name{
+    font-family:'Fraunces',serif;font-weight:700;font-size:18px;letter-spacing:-0.01em;
+  }
+  .nav-links{display:flex;gap:28px;font-size:14px;color:var(--muted);}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-cta{
+    font-size:13px;font-weight:600;background:var(--ink);color:var(--bg);
+    padding:8px 16px;border-radius:30px;
+  }
+  .nav-cta:hover{background:var(--accent);}
+  @media (max-width:680px){ .nav-links{display:none;} }
+
+  /* ---- Hero ---- */
+  .hero{padding:72px 0 56px;}
+  .hero-grid{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:start;
+  }
+  @media (max-width:820px){ .hero-grid{grid-template-columns:1fr;} }
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:0.06em;
+    color:var(--teal);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal);display:inline-block;}
+
+  h1.title{
+    font-family:'Fraunces',serif;font-weight:700;
+    font-size:clamp(34px,5vw,54px);line-height:1.05;letter-spacing:-0.01em;
+    margin-bottom:18px;
+  }
+  .title em{font-style:italic;color:var(--accent);font-weight:500;}
+
+  .lede{font-size:17px;color:var(--muted);max-width:480px;margin-bottom:28px;}
+
+  .contact-strip{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;}
+  .pill{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;
+    background:var(--surface);border:1px solid var(--line);border-radius:30px;
+    padding:7px 14px;display:inline-flex;align-items:center;gap:6px;color:var(--ink);
+  }
+  .pill:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* code card */
+  .code-card{
+    background:#11181C;border-radius:var(--radius);overflow:hidden;
+    box-shadow:0 24px 50px -20px rgba(17,24,28,0.45);
+  }
+  .code-bar{
+    display:flex;align-items:center;gap:8px;padding:12px 16px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .dot{width:10px;height:10px;border-radius:50%;}
+  .dot.r{background:#FF5F57;} .dot.y{background:#FEBC2E;} .dot.g{background:#28C840;}
+  .code-title{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#8A9499;}
+  .code-body{padding:20px 18px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.85;color:#D7DCDE;overflow-x:auto;}
+  .code-body .ln{color:#566066;display:inline-block;width:22px;user-select:none;}
+  .kw{color:#7FB7FF;} .str{color:#9BE39B;} .fn{color:#F4C26B;} .com{color:#566066;}
+
+  /* ---- Section shell ---- */
+  section{padding:56px 0;border-top:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:32px;}
+  .section-num{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--teal);}
+  h2.section-title{
+    font-family:'Fraunces',serif;font-weight:600;font-size:28px;letter-spacing:-0.01em;
+  }
+
+  /* ---- About / profile ---- */
+  .about-text{max-width:680px;color:var(--ink);font-size:15.5px;}
+  .about-text p{margin-bottom:14px;}
+  .lang-row{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;}
+  .lang{
+    font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--teal-soft);
+    color:var(--teal);padding:6px 12px;border-radius:8px;
+  }
+
+  /* ---- Skills ---- */
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+  @media (max-width:680px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-cat{font-size:13px;color:var(--muted);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.05em;}
+  .tag-cloud{display:flex;flex-wrap:wrap;gap:9px;}
+  .tag{
+    background:var(--surface);border:1px solid var(--line);border-radius:8px;
+    padding:8px 13px;font-size:13.5px;
+  }
+  .tag.tech{border-color:var(--accent-soft);background:var(--accent-soft);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12.5px;}
+
+  /* ---- Experience timeline ---- */
+  .timeline{position:relative;}
+  .tl-item{
+    display:grid;grid-template-columns:140px 1fr;gap:24px;padding:22px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .tl-item:last-child{border-bottom:none;}
+  @media (max-width:680px){.tl-item{grid-template-columns:1fr;gap:6px;}}
+  .tl-date{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--teal);padding-top:3px;}
+  .tl-role{font-weight:600;font-size:16px;margin-bottom:2px;}
+  .tl-org{color:var(--muted);font-size:13.5px;margin-bottom:10px;}
+  .tl-item ul{padding-left:18px;color:var(--ink);font-size:14.5px;}
+  .tl-item li{margin-bottom:5px;}
+
+  /* ---- Education ---- */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media (max-width:680px){.edu-grid{grid-template-columns:1fr;}}
+  .edu-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;}
+  .edu-card .deg{font-weight:700;font-size:15.5px;margin-bottom:4px;}
+  .edu-card .school{color:var(--muted);font-size:13.5px;margin-bottom:10px;}
+  .edu-card .when{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--teal);}
+  .edu-note{font-size:13px;color:var(--muted);margin-top:10px;font-style:italic;}
+
+  /* ---- Projects ---- */
+  .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media (max-width:780px){.proj-grid{grid-template-columns:1fr;}}
+  .proj-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;display:flex;flex-direction:column;height:100%;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .proj-card:hover{transform:translateY(-3px);box-shadow:0 16px 30px -18px rgba(17,24,28,0.35);}
+  .proj-index{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:10px;}
+  .proj-title{font-family:'Fraunces',serif;font-weight:600;font-size:19px;margin-bottom:8px;}
+  .proj-desc{color:var(--ink);font-size:14px;margin-bottom:16px;flex-grow:1;}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .proj-tags span{
+    font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--bg);
+    border:1px solid var(--line);border-radius:6px;padding:4px 8px;color:var(--muted);
+  }
+
+  /* ---- Contact / footer ---- */
+  .contact-section{text-align:center;padding:72px 0 40px;}
+  .contact-section h2{
+    font-family:'Fraunces',serif;font-weight:700;font-size:clamp(28px,4vw,40px);
+    margin-bottom:16px;letter-spacing:-0.01em;
+  }
+  .contact-section p{color:var(--muted);max-width:460px;margin:0 auto 28px;}
+  .contact-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn{
+    font-weight:600;font-size:14.5px;padding:13px 24px;border-radius:30px;
+  }
+  .btn.primary{background:var(--ink);color:var(--bg);}
+  .btn.primary:hover{background:var(--accent);}
+  .btn.ghost{border:1px solid var(--line);background:var(--surface);}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent);}
+  footer{
+    text-align:center;padding:24px 0;color:var(--muted);font-size:12.5px;
+    border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-name">Ye Sett Paing Phyo</div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;padding-bottom:0;">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Available from July 2026</div>
+        <h1 class="title">Computer Science graduate,<br><em>built for backend &amp; data.</em></h1>
+        <p class="lede">BSc (Hons) Computer Science graduate from the University of Hertfordshire with an HND in Infocom Technology from TMC Academy Singapore. I like systems that hold up under load — databases that scan fast, robots that react in real time, and code that's easy for the next person to read.</p>
+        <div class="contact-strip">
+          <a class="pill" href="mailto:yesettpaingphyo4@gmail.com">✉ yesettpaingphyo4@gmail.com</a>
+          <a class="pill" href="tel:+447557036862">☎ +44 7557 036862</a>
+          <span class="pill">📍 Hatfield, UK</span>
+        </div>
+      </div>
+
+      <div class="code-card">
+        <div class="code-bar">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="code-title">candidate.sql</span>
+        </div>
+        <div class="code-body">
+<div><span class="ln">1</span><span class="kw">SELECT</span> name, role, status</div>
+<div><span class="ln">2</span><span class="kw">FROM</span> graduates</div>
+<div><span class="ln">3</span><span class="kw">WHERE</span> name = <span class="str">'Ye Sett Paing Phyo'</span></div>
+<div><span class="ln">4</span>&nbsp;&nbsp;<span class="kw">AND</span> degree = <span class="str">'BSc Computer Science'</span></div>
+<div><span class="ln">5</span>&nbsp;&nbsp;<span class="kw">AND</span> ready_to_work = <span class="fn">TRUE</span>;</div>
+<div style="margin-top:14px;"><span class="ln"></span><span class="com">-- 1 row returned</span></div>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About</h2>
+    </div>
+    <div class="about-text">
+      <p>I'm graduating from the University of Hertfordshire in July 2026 with a BSc (Hons) in Computer Science, building on an HND in Infocom Technology from TMC Academy Singapore. My final year covered software engineering, algorithms, data structures and system design, and I've worked through projects spanning databases, web applications, Java, embedded systems and IoT.</p>
+      <p>I'm an organised, fast-learning problem solver who's comfortable picking up new tools quickly — I've balanced part-time work with full-time study throughout, which has sharpened my time management and communication skills alongside the technical ones. My academic transcript is available from the University of Hertfordshire on request.</p>
+      <div class="lang-row">
+        <span class="lang">English — Fluent</span>
+        <span class="lang">Japanese — JLPT N4</span>
+        <span class="lang">Myanmar — Native</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-cat">Technical</div>
+        <div class="tag-cloud">
+          <span class="tag tech">Python</span>
+          <span class="tag tech">Java</span>
+          <span class="tag tech">SQL</span>
+          <span class="tag tech">PostgreSQL</span>
+          <span class="tag tech">PHP / MySQL</span>
+          <span class="tag tech">C</span>
+          <span class="tag tech">Git</span>
+          <span class="tag tech">Networking &amp; IT Systems</span>
+          <span class="tag tech">SDLC</span>
+          <span class="tag tech">Microsoft Office</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-cat">Professional</div>
+        <div class="tag-cloud">
+          <span class="tag">Analytical &amp; Logical Thinking</span>
+          <span class="tag">Problem Solving</span>
+          <span class="tag">Team Collaboration</span>
+          <span class="tag">Fast Learner &amp; Adaptable</span>
+          <span class="tag">Time Management</span>
+          <span class="tag">Attention to Detail</span>
+          <span class="tag">Written &amp; Verbal Communication</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">SEP 2025 — PRESENT</div>
+        <div>
+          <div class="tl-role">Server (concurrent with studies)</div>
+          <div class="tl-org">Thai Rack Traditional Thai Cuisine / Old Siam Restaurant</div>
+          <ul>
+            <li>Balanced full-time university study with regular work shifts, building strong time-management habits</li>
+            <li>Developed customer communication, problem-solving and professional interpersonal skills</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">SEP 2025 — FEB 2026</div>
+        <div>
+          <div class="tl-role">Warehouse Operative (Part-time)</div>
+          <div class="tl-org">Llyod Baker Lather, Walham Green</div>
+          <ul>
+            <li>Applied meticulous attention to detail across order picking, stock management and quality checks</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025 — JUL 2026</div>
+        <div>
+          <div class="tl-role">BSc (Hons) Computer Science (Top-up)</div>
+          <div class="tl-org">University of Hertfordshire</div>
+          <ul>
+            <li>Final-year study covering software engineering, algorithms, data structures and system design</li>
+            <li>Completed practical programming projects applying real-world software development techniques</li>
+            <li>Collaborated on group projects, strengthening agile teamwork and communication</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">COMPLETED 2025</div>
+        <div>
+          <div class="tl-role">HND Infocom Technology Graduate</div>
+          <div class="tl-org">TMC Academy Singapore</div>
+          <ul>
+            <li>Completed a comprehensive diploma covering programming, networking, database management and IT systems</li>
+            <li>Gained hands-on exposure to software development practices and infrastructure concepts</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Education</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="deg">BSc (Hons) Computer Science (Top-up)</div>
+        <div class="school">University of Hertfordshire</div>
+        <div class="when">2025 — 2026 (In Progress)</div>
+      </div>
+      <div class="edu-card">
+        <div class="deg">HND Infocom Technology</div>
+        <div class="school">TMC Academy Singapore</div>
+        <div class="when">Completed 2025</div>
+      </div>
+    </div>
+    <div class="edu-note">Academic transcript available from the University of Hertfordshire upon request.</div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <div class="proj-index">01 / Database Engineering</div>
+        <div class="proj-title">ConnectSphere</div>
+        <div class="proj-desc">An advanced PostgreSQL case study: rewrote a correlated subquery into a CTE with window functions to cut it from O(n²) to linear, compared MVCC against table locking for concurrency, redesigned a JSONB social graph as a proper nodes-and-edges model, added PostGIS geospatial search, and built a star-schema warehouse plus a time-series table tuned for write-heavy server monitoring.</div>
+        <div class="proj-tags"><span>PostgreSQL</span><span>PostGIS</span><span>SQL</span><span>Star Schema</span><span>Query Optimization</span></div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-index">02 / Full-Stack Web</div>
+        <div class="proj-title">Pawfect</div>
+        <div class="proj-desc">A full-stack booking platform built in PHP and MySQL. Includes user registration and login, a specialist booking flow, an admin dashboard for managing users and bookings, a specialist-side dashboard, and a simple shop and order system.</div>
+        <div class="proj-tags"><span>PHP</span><span>MySQL</span><span>HTML/CSS/JS</span><span>Admin Dashboards</span></div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-index">03 / Java &amp; OOP</div>
+        <div class="proj-title">Clinic Management System</div>
+        <div class="proj-desc">A desktop application for managing patients, clinicians and prescriptions, built in Java with a Model-View-Controller and three-tier architecture. The interface uses Swing components (JTable, JDialog) and the model persists data through CSV files, developed iteratively with a tracked Git commit history.</div>
+        <div class="proj-tags"><span>Java</span><span>Swing</span><span>MVC</span><span>Git</span></div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-index">04 / IoT</div>
+        <div class="proj-title">IoT Environmental Monitor</div>
+        <div class="proj-desc">An Arduino-based sensor project using an AHT20 temperature and humidity sensor to capture live environmental readings, covering hardware wiring, sensor calibration and reading data out to a connected output.</div>
+        <div class="proj-tags"><span>Arduino</span><span>C++</span><span>AHT20 Sensor</span><span>IoT</span></div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-index">05 / Embedded Systems</div>
+        <div class="proj-title">Vision-Guided Robot Car</div>
+        <div class="proj-desc">A Raspberry Pi-controlled robot car that uses real-time colour blob detection to track and follow a target, written in C with custom image-processing and hardware-driver code for motor and sensor control.</div>
+        <div class="proj-tags"><span>C</span><span>Raspberry Pi</span><span>Computer Vision</span><span>Embedded Linux</span></div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-index">06 / Real-Time Control</div>
+        <div class="proj-title">Line-Following Robot</div>
+        <div class="proj-desc">An autonomous line-following robot built for a real-time control systems module, with sensor-feedback control logic written in C to keep the robot tracking a path with low latency.</div>
+        <div class="proj-tags"><span>C</span><span>Real-Time Systems</span><span>Embedded Control</span></div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section" style="border-top:1px solid var(--line);">
+  <div class="wrap">
+    <h2>Let's talk about an opportunity.</h2>
+    <p>I'm graduating in July 2026 and looking for a full-time IT role where I can put these projects to work. Reach out any time.</p>
+    <div class="contact-buttons">
+      <a class="btn primary" href="mailto:yesettpaingphyo4@gmail.com">Email me</a>
+      <a class="btn ghost" href="tel:+447557036862">Call +44 7557 036862</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  YE SETT PAING PHYO — HATFIELD, UK — © 2026
+</footer>
+
+</body>
+</html>
